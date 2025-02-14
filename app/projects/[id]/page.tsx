@@ -88,11 +88,14 @@ const projects = {
   },
 }
 
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  const project = projects[params.id as keyof typeof projects]
+export default async function ProjectPage({ params }: { params: { id: string } }) {
+  // Await params to ensure correct access
+  const { id: projectId } = await params;  // Destructure and await params
+  
+  const project = projects[projectId as keyof typeof projects];
 
   if (!project) {
-    notFound()
+    notFound(); // Show 404 if project doesn't exist
   }
 
   return (
@@ -185,6 +188,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
+
 
